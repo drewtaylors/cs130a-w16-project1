@@ -50,7 +50,8 @@ void Hashtable::lookup(int key) {
   int index = hash1(key);
   if (method == "linearprobing") {
     while (table[index] != NULL && table[index]->key != key) {
-      index = hash1(key+1);
+      key++;
+      index = hash1(key);
     }
   }
   if (method == "doublehashing") {
@@ -75,7 +76,8 @@ void Hashtable::remove(int key) {
   int index = hash1(key);
   if (method == "linearprobing") {
     while (table[index] != NULL && table[index]->key != key) {
-      index = hash1(key+1);
+      key++;
+      index = hash1(key);
     }
   }
   if (method == "doublehashing") {
