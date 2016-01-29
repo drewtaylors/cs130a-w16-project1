@@ -36,6 +36,7 @@ void Hashtable::insert(int key, Student student) {
     table[index]->key = key;
     table[index]->student.setName(student.getName());
     table[index]->student.setGPA(student.getGPA());
+    cout << "item successfully inserted" << endl;
   }
 }
 
@@ -65,7 +66,26 @@ void Hashtable::lookup(int key) {
 }
 
 void Hashtable::remove(int key) {
-  
+  int index = hash1(key);
+  if (method == "linearprobing") {
+    while (table[index] != NULL && table[index]->key != key) {
+      index = hash1(key+1);
+    }
+  }
+  if (method == "doublehashing") {
+    int i = 0;
+    while (table[index] != NULL && table[index]->key != key) {
+      i++;
+      index = (hash1(key) + i*hash2(key)) % TABLE_SIZE;
+    }
+  }
+  if (table[index] == NULL) {
+    cout << "item not present in table" << endl;
+  }
+  else {
+    table[index]->key = -10;
+    cout << "item successfully deleted" << endl;
+  }
 }
 
 void Hashtable::print() {
