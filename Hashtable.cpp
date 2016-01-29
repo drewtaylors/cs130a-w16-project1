@@ -18,19 +18,19 @@ Hashtable::Hashtable() {
 void Hashtable::insert(int key, Student student) {
   int index = hash1(key);
   if (method == "linearprobing") {
-    while (table[index] != NULL && table[index]->key != key) {
+    while (table[index] != NULL && table[index]->key != key && table[index]->key != -10) {
       key++;
       index = hash1(key);
     }
   }
   if (method == "doublehashing") {
     int i = 0;
-    while (table[index] != NULL && table[index]->key != key) {
+    while (table[index] != NULL && table[index]->key != key && table[index]->key != -10) {
       i++;
       index = (hash1(key) + i*hash2(key)) % TABLE_SIZE;
     }
   }
-  if (table[index] != NULL) {
+  if (table[index] != NULL && table[index]->key != -10) {
     cout << "item already present" << endl;
   }
   else {
@@ -124,19 +124,19 @@ void Hashtable::rehash() {
     if (ogTable[j] != NULL) {
       int index = hash1(ogTable[j]->key);
       if (method == "linearprobing") {
-	while (table[index] != NULL && table[index]->key != ogTable[j]->key) {
+	while (table[index] != NULL && table[index]->key != ogTable[j]->key && table[index]->key != -10) {
 	  ogTable[j]->key++;
 	  index = hash1(ogTable[j]->key);
 	}
       }
       if (method == "doublehashing") {
 	int k = 0;
-	while (table[index] != NULL && table[index]->key != ogTable[j]->key) {
+	while (table[index] != NULL && table[index]->key != ogTable[j]->key && table[index]->key != -10) {
 	  k++;
 	  index = (hash1(ogTable[j]->key) + k*hash2(ogTable[j]->key)) % TABLE_SIZE;
 	}
       }
-      if (table[index] != NULL) {
+      if (table[index] != NULL && table[index]->key != -10) {
 	cout << "item already present" << endl;
       }
       else {
