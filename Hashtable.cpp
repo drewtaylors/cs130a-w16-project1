@@ -6,6 +6,7 @@ using namespace std;
 
 Hashtable::Hashtable() {
   method = "linearprobing";
+  size = 0;
   TABLE_SIZE = 5;
   table = new Node*[TABLE_SIZE];
   for (int i = 0; i < TABLE_SIZE; i++) {
@@ -36,6 +37,10 @@ void Hashtable::insert(int key, Student student) {
     table[index]->key = key;
     table[index]->student.setName(student.getName());
     table[index]->student.setGPA(student.getGPA());
+    size++;
+    if (size > 0.7*TABLE_SIZE) {
+      this.rehash();
+    }
     cout << "item successfully inserted" << endl;
   }
 }
@@ -89,7 +94,36 @@ void Hashtable::remove(int key) {
 }
 
 void Hashtable::print() {
+  for (int i = 0; i < TABLE_SIZE; i++) {
+    if (table[i] != NULL && table[i]->key != -10) {
+      cout << "(" << table[i]->key 
+	   << "," << table[i]->student.getName()
+	   << "," << fixed << setprecision(1) << table[i]->student.getGPA()
+	   << ")c";
+    } 
+  }
+  cout << endl;
+}
 
+void Hashtable::rehash() {
+  int OG_TABLE_SIZE = TABLE_SIZE;
+  TABLE_SIZE = TABLE_SIZE * 2 + 1;
+  while (isPrime(TABLE_SIZE) != true) {
+    TABLE_SIZE = TABLE_SIZE + 2;
+  }
+  Node **ogTable = table;
+  table = new Node*[TABLE_SIZE];
+  for (int i = 0; i < TABLE_SIZE; i++) {
+    table[i] = NULL;
+  }
+  size = 0;
+  for (int index = 0; index < OG_TABLE_SIZE; index++) {
+    if (ogTable[index] != NULL) {
+      table.insert(key, ogTable[index]->student);
+    }
+  }
+  delete [] ogTable;
+  cout << "table doubled" << endl;
 }
 
 int Hashtable::hash1(int key) {
@@ -106,5 +140,21 @@ void Hashtable::setMode(int number) {
   }
   else if (number == 2) {
     method = "doublehashing";
+  }
+}
+
+bool Hashtable::isPrime(int number) {
+  for (int i = 2; i < number; i++) {
+    if (number % i == 0) {
+      return false;
+    }
+  }
+}
+
+Hashtable::~Hashtable() {
+  for (int i = 0; i < TABLE_SIZE; i++) {
+    if (table[i] != NULL) {
+      delete table[i];
+    }
   }
 }

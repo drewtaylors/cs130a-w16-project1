@@ -7,6 +7,7 @@ class Hashtable {
 
  public:
   Hashtable();
+  ~Hashtable();
   void insert(int key, Student student);
   void lookup(int key);
   void remove(int key);
@@ -16,6 +17,7 @@ class Hashtable {
   int hash2(int key);
 
   void setMode(int number);
+  void rehash();
 
  private:
   struct Node {
@@ -23,10 +25,10 @@ class Hashtable {
     Student student;
   };
   Node **table;
+  int size;
   int TABLE_SIZE;
   string method;
   bool isPrime(int number);
-
 };
 
 #endif
