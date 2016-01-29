@@ -1,5 +1,4 @@
 #include <string>
-#include "Student.cpp"
 
 using namespace std;
 
@@ -14,4 +13,4 @@ class Student {
   void setGPA(double gpa);
   string getName();
   int getGPA();
-}
+};
