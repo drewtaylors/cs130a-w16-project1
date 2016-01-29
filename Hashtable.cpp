@@ -88,7 +88,7 @@ void Hashtable::remove(int key) {
     }
   }
   if (table[index] == NULL) {
-    cout << "item not present in table" << endl;
+    cout << "item not present in the table" << endl;
   }
   else {
     table[index]->key = -10;
