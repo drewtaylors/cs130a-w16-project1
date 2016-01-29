@@ -123,7 +123,8 @@ void Hashtable::rehash() {
       int index = hash1(ogTable[j]->key);
       if (method == "linearprobing") {
 	while (table[index] != NULL && table[index]->key != ogTable[j]->key) {
-	  index = hash1(ogTable[j]->key+1);
+	  ogTable[j]->key++;
+	  index = hash1(ogTable[j]->key);
 	}
       }
       if (method == "doublehashing") {
