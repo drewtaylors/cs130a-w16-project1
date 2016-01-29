@@ -1,4 +1,5 @@
 #include <string>
+#include "Student.h"
 
 using namespace std;
 
@@ -21,4 +22,9 @@ int Student::getGPA() {
 Student::Student(string name, int gpa) {
   setName(name);
   setGPA(gpa);
+}
+
+Student::Student() {
+  setName("null");
+  setGPA(0);
 }

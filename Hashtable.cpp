@@ -1,27 +1,71 @@
+#include <iostream>
+#include <iomanip>
 #include "Hashtable.h"
 
 using namespace std;
 
-void Hashtable::insert(int key, Student student) {
+Hashtable::Hashtable() {
+  method = "linearprobing";
+  TABLE_SIZE = 5;
+  table = new Node*[TABLE_SIZE];
+  for (int i = 0; i < TABLE_SIZE; i++) {
+    table[i] = NULL;
+  }
+}
 
+
+void Hashtable::insert(int key, Student student) {
+  int index = hash1(key);
+  if (method == "linearprobing") {
+    while (table[index] != NULL && table[index]->key != key) {
+      index = hash1(key+1);
+    }
+  }
+  if (method == "doublehashing") {
+    int i = 0;
+    while (table[index] != NULL && table[index]->key != key) {
+      i++;
+      index = (hash1(key) + i*hash2(key)) % TABLE_SIZE;
+    }
+  }
+  if (table[index] != NULL) {
+    cout << "item already present" << endl;
+  }
+  else {
+    table[index] = new Node;
+    table[index]->key = key;
+    table[index]->student.setName(student.getName());
+    table[index]->student.setGPA(student.getGPA());
+  }
 }
 
 void Hashtable::lookup(int key) {
   int index = hash1(key);
-  if (table[index] == key) {
-    cout << " " << endl;
+  if (method == "linearprobing") {
+    while (table[index] != NULL && table[index]->key != key) {
+      index = hash1(key+1);
+    }
   }
-  else {  
-    if(method == "linearprobing"){
-      
+  if (method == "doublehashing") {
+    int i = 0;
+    while (table[index] != NULL && table[index]->key != key) {
+      i++;
+      index = (hash1(key) + i*hash2(key)) % TABLE_SIZE;
     }
-    else if(method == "doublehashing"){
-    }
+  }
+  if (table[index] == NULL) {
+    cout << "item not found" << endl;
+  }
+  else {
+    cout << "item found; " 
+	 << table[index]->student.getName() 
+	 << " "
+	 << index << endl;
   }
 }
 
 void Hashtable::remove(int key) {
-
+  
 }
 
 void Hashtable::print() {
@@ -38,9 +82,9 @@ int Hashtable::hash2(int key) {
 
 void Hashtable::setMode(int number) {
   if (number == 1) {
-    this->method = "linearprobing";
+    method = "linearprobing";
   }
   else if (number == 2) {
-    this->method = "doublehashing";
+    method = "doublehashing";
   }
 }

@@ -1,9 +1,12 @@
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
 #include <string>
 #include "Student.h"
 
 class Hashtable {
 
  public:
+  Hashtable();
   void insert(int key, Student student);
   void lookup(int key);
   void remove(int key);
@@ -19,8 +22,11 @@ class Hashtable {
     int key;
     Student student;
   };
-  int TABLE_SIZE = 5;
-  Node* table [TABLE_SIZE];
+  Node **table;
+  int TABLE_SIZE;
+  string method;
   bool isPrime(int number);
-  string method = "linearprobing";
+
 };
+
+#endif

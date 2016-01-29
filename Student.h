@@ -1,3 +1,6 @@
+#ifndef STUDENT_H
+#define STUDENT_H
+
 #include <string>
 
 using namespace std;
@@ -14,5 +17,8 @@ class Student {
   string getName();
   int getGPA();
   Student(string name, int gpa);
+  Student();
 
 };
+
+#endif
