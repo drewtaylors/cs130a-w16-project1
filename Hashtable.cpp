@@ -39,7 +39,7 @@ void Hashtable::insert(int key, Student student) {
     table[index]->student.setGPA(student.getGPA());
     size++;
     if (size > 0.7*TABLE_SIZE) {
-      this->rehash();
+      rehash();
     }
     cout << "item successfully inserted" << endl;
   }
@@ -99,7 +99,7 @@ void Hashtable::print() {
       cout << "(" << table[i]->key 
 	   << "," << table[i]->student.getName()
 	   << "," << fixed << setprecision(1) << table[i]->student.getGPA()
-	   << ")c";
+	   << ")";
     } 
   }
   cout << endl;
@@ -171,6 +171,7 @@ bool Hashtable::isPrime(int number) {
       return false;
     }
   }
+  return true;
 }
 
 Hashtable::~Hashtable() {

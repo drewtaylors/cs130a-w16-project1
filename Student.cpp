@@ -15,11 +15,11 @@ string Student::getName() {
   return name;
 }
 
-int Student::getGPA() {
+double Student::getGPA() {
   return gpa;
 }
 
-Student::Student(string name, int gpa) {
+Student::Student(string name, double gpa) {
   setName(name);
   setGPA(gpa);
 }
