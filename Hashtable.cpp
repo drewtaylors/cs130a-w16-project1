@@ -39,7 +39,7 @@ void Hashtable::insert(int key, Student student) {
     table[index]->student.setGPA(student.getGPA());
     size++;
     if (size > 0.7*TABLE_SIZE) {
-      this.rehash();
+      this->rehash();
     }
     cout << "item successfully inserted" << endl;
   }
@@ -117,9 +117,31 @@ void Hashtable::rehash() {
     table[i] = NULL;
   }
   size = 0;
-  for (int index = 0; index < OG_TABLE_SIZE; index++) {
-    if (ogTable[index] != NULL) {
-      table.insert(key, ogTable[index]->student);
+  for (int j = 0; j < OG_TABLE_SIZE; j++) {
+    if (ogTable[j] != NULL) {
+      int index = hash1(ogTable[j]->key);
+      if (method == "linearprobing") {
+	while (table[index] != NULL && table[index]->key != ogTable[j]->key) {
+	  index = hash1(ogTable[j]->key+1);
+	}
+      }
+      if (method == "doublehashing") {
+	int k = 0;
+	while (table[index] != NULL && table[index]->key != ogTable[j]->key) {
+	  k++;
+	  index = (hash1(ogTable[j]->key) + k*hash2(ogTable[j]->key)) % TABLE_SIZE;
+	}
+      }
+      if (table[index] != NULL) {
+	cout << "item already present" << endl;
+      }
+      else {
+	table[index] = new Node;
+	table[index]->key = ogTable[j]->key;
+	table[index]->student.setName(ogTable[j]->student.getName());
+	table[index]->student.setGPA(ogTable[j]->student.getGPA());
+	size++;
+      }
     }
   }
   delete [] ogTable;
