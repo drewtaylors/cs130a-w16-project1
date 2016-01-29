@@ -9,8 +9,8 @@ class Hashtable {
   void remove(int key);
   void print();
 
-  inthash1(int key);
-  inthash2(int key);
+  int hash1(int key);
+  int hash2(int key);
 
   void setMode(int number);
 

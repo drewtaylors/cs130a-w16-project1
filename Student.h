@@ -13,4 +13,6 @@ class Student {
   void setGPA(double gpa);
   string getName();
   int getGPA();
+  Student(string name, int gpa);
+
 };
