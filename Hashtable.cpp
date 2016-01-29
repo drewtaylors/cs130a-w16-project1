@@ -19,8 +19,10 @@ void Hashtable::insert(int key, Student student) {
   int index = hash1(key);
   if (method == "linearprobing") {
     while (table[index] != NULL && table[index]->key != key && table[index]->key != -10) {
-      key++;
-      index = hash1(key);
+      index++;
+      if (index == TABLE_SIZE) {
+	index = 0;
+      }
     }
   }
   if (method == "doublehashing") {
@@ -50,8 +52,10 @@ void Hashtable::lookup(int key) {
   int index = hash1(key);
   if (method == "linearprobing") {
     while (table[index] != NULL && table[index]->key != key) {
-      key++;
-      index = hash1(key);
+      index++;
+      if (index == TABLE_SIZE) {
+        index = 0;
+      }
     }
   }
   if (method == "doublehashing") {
@@ -76,8 +80,10 @@ void Hashtable::remove(int key) {
   int index = hash1(key);
   if (method == "linearprobing") {
     while (table[index] != NULL && table[index]->key != key) {
-      key++;
-      index = hash1(key);
+      index++;
+      if (index == TABLE_SIZE) {
+        index = 0;
+      }
     }
   }
   if (method == "doublehashing") {
@@ -125,8 +131,10 @@ void Hashtable::rehash() {
       int index = hash1(ogTable[j]->key);
       if (method == "linearprobing") {
 	while (table[index] != NULL && table[index]->key != ogTable[j]->key && table[index]->key != -10) {
-	  ogTable[j]->key++;
-	  index = hash1(ogTable[j]->key);
+	  index++;
+	  if (index == TABLE_SIZE) {
+	    index = 0;
+	  }
 	}
       }
       if (method == "doublehashing") {
