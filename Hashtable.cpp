@@ -142,6 +142,7 @@ void Hashtable::rehash() {
 	int k = 0;
 	// issue is this while loop for double hashing
 	while (table[index] != NULL && table[index]->key != ogTable[j]->key && table[index]->key != -10) {
+	  cout << "hashing" << endl;
 	  k++;
 	  index = (hash1(ogTable[j]->key) + k*hash2(ogTable[j]->key)) % TABLE_SIZE;
 	}
