@@ -15,8 +15,8 @@ class Student {
   void setName(string name);
   void setGPA(double gpa);
   string getName();
-  int getGPA();
-  Student(string name, int gpa);
+  double getGPA();
+  Student(string name, double gpa);
   Student();
 
 };

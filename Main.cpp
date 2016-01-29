@@ -15,7 +15,7 @@ int main()
 
   try
     {
-      Hashtable<Student> h;
+      Hashtable h;
 
       while(true)
 	{
